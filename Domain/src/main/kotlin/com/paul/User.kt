@@ -1,4 +1,4 @@
-package domain
+package com.paul
 
 data class User(
         val username: String,

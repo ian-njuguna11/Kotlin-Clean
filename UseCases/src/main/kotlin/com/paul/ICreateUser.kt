@@ -1,5 +1,4 @@
-package usecases
-import domain.User
+package com.paul
 
 //val username: String?, val email: String?, val password: String?, val age: Int?
 

@@ -1,27 +1,26 @@
-package Interfaces
+package com.paul
 
-import domain.User
+import kotlin.test.assertEquals
 import org.junit.Assert.*
 
-class CreateUserTest {
-
+class HelloTest {
     var createGoodUser: CreateUser? = null
     var createBadUser: CreateUser? = null
 
     @org.junit.Before
     fun setUp(){
 //        all the fields are properly put for this user
-        val good_user = User(
-                "paul", "paul1tw1@gmail.com", "Bluesky@1234", 23
+        val goodUser = User(
+            "paul", "paul1tw1@gmail.com", "Bluesky@1234", 23
         )
-        this.createGoodUser = CreateUser(good_user)
+        this.createGoodUser = CreateUser(goodUser)
 
 //        all the fields for this user are wrongly written
-        val bad_user = User(
-                "Samual Njoroge", "sam.com", "blue", 130
+        val badUser = User(
+            "Samual Njoroge", "sam.com", "blue", 130
         )
 
-        this.createBadUser = CreateUser(bad_user)
+        this.createBadUser = CreateUser(badUser)
 
     }
 
@@ -54,5 +53,4 @@ class CreateUserTest {
     fun testInvalidPassword(){
         assertEquals(this.createBadUser!!.validatePassword(), false)
     }
-
 }

@@ -1,7 +1,4 @@
-package Interfaces
-
-import domain.User
-import usecases.ICreateUser
+package com.paul
 
 class CreateUser(user: User): ICreateUser{
 
