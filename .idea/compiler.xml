@@ -6,9 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Domain" />
         <module name="Interfaces" />
         <module name="UseCases" />
+        <module name="cleancode-interfaces" />
+        <module name="cleancode-domain" />
+        <module name="cleancode-usecases" />
+        <module name="Domain" />
       </profile>
     </annotationProcessing>
   </component>
