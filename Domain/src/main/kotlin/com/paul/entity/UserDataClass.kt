@@ -1,6 +1,6 @@
-package com.paul
+package com.paul.entity
 
-data class User(
+data class UserDataClass (
         val username: String,
         val email: String,
         val password: String,

@@ -1,6 +1,9 @@
 package com.paul
 
-class CreateUser(user: User): ICreateUser{
+import com.paul.entity.UserDataClass
+import kotlin.text.Regex
+
+class CreateUser(user: UserDataClass): ICreateUser {
 
     private val user = user
 
@@ -38,7 +41,6 @@ class CreateUser(user: User): ICreateUser{
         if ( age > 100 || age < 0 ) return false
         return true
     }
-
 
 
 
