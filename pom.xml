@@ -10,6 +10,7 @@
         <module>Domain</module>
         <module>UseCases</module>
         <module>Interfaces</module>
+        <module>demo</module>
     </modules>
     <packaging>pom</packaging>
 
