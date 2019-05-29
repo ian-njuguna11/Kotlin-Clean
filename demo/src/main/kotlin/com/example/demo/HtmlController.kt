@@ -11,15 +11,9 @@ class UserController {
 
     @PostMapping
     fun postUser(@RequestBody userinfo: UserDataClass): UserResponseDataClass {
-        val email: String = userinfo.email
-
-        if ( email == "paul1tw1@gmail.com" )
-            return UserResponseDataClass(
-                username= "paul1tw1@gmail.com"
-            )
-
         return UserResponseDataClass(
-            error = "enter the correct email"
+            email =  userinfo.email,
+            password = userinfo.password
         )
 
     }
