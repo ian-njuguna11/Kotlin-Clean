@@ -4,12 +4,10 @@ package com.paul
 
 interface ICreateUser{
 
-    fun validateEmail(): Boolean
+    fun validateFields(): String
 
-    fun validatePassword(): Boolean
+    fun findUser(): Boolean
 
-    fun validateUsername(): Boolean
-
-    fun validateAge(): Boolean
+    fun addUser(): String
 
 }

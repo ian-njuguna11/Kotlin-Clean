@@ -1,47 +1,45 @@
 package com.paul
 
 import com.paul.entity.UserDataClass
-import kotlin.text.Regex
 
-class CreateUser(user: UserDataClass): ICreateUser {
+class CreateUser(val user: UserDataClass): ICreateUser{
 
-    private val user = user
+    val validator = Validator()
 
-    override fun validateEmail(): Boolean {
-        val email = user.email
-        val emailPattern = Regex(pattern = "" +
-                "(?:[a-z0-9!#\$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\$%&'*+/=?^_`{|}~-]+)*|\"" +
-                "(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\" +
-                "[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@" +
-                "(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[" +
-                "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}" +
-                "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:" +
-                "(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\" +
-                "[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")
-//        returns true if 'email' is a valid email pattern
-        return emailPattern.matches(input = email)
+    override fun validateFields(): String {
+
+        if (!this.validator.validateAge(this.user.age))
+            return "Age has to be between 1 and 100 years old"
+        else if (!this.validator.validatePassword(this.user.password))
+            return "Keep a stronger password"
+        else if (!this.validator.validateUsername(this.user.username))
+            return "The username cannot be more than 10 characters long"
+        else if (!this.validator.validateEmail(this.user.email))
+            return "Enter a valid email"
+        return ""
 
     }
 
-    override fun validatePassword(): Boolean {
-        val password = user.password
+    override fun findUser(): Boolean {
 
-        if ( password.length < 8 ) return false
-        return true
+        for (singleUser in Users.userList){
+            if (singleUser.email == this.user.email)
+                return true
+        }
+        return false
+
     }
 
-    override fun validateUsername(): Boolean {
-        if ( user.username.length > 5 ) return false
-        return true
+    override fun addUser(): String {
+
+        if (this.validateFields() != "") return this.validateFields()
+
+        else if (this.findUser()) return "User already found"
+
+        Users.userList.add(this.user)
+
+        return "success"
     }
-
-    override fun validateAge(): Boolean {
-        val age = user.age
-
-        if ( age > 100 || age < 0 ) return false
-        return true
-    }
-
 
 
 }
