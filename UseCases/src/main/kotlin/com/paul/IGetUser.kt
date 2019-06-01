@@ -4,5 +4,5 @@ import com.paul.entity.UserDataClass
 
 interface IGetUser {
 
-    fun getUser(email: String): UserDataClass
+    fun getUser(email: String, password: String): UserDataClass
 }

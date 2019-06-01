@@ -1,9 +1,12 @@
-package com.paul
+package com.paul.UserInterfaces
 
+import com.paul.ICreateUser
+import com.paul.Users
+import com.paul.Validator
 import com.paul.entity.UserDataClass
 import com.paul.port.UserCRUD
 
-class CreateUser(val user: UserDataClass): ICreateUser{
+class CreateUser(val user: UserDataClass): ICreateUser {
 
     val validator = Validator()
 

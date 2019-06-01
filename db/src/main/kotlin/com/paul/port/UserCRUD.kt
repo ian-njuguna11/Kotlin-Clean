@@ -99,12 +99,11 @@ class UserCRUD {
 
         transaction {
             val query = UserModel.select{
-                (UserModel.email eq user_email) and (UserModel.password eq user_password)
+                (UserModel.email eq user_email) and (UserModel.password eq HashPassword.createHash(user_password))
             }
             query.forEach {
                 user.email = it[UserModel.email]
                 user.username = it[UserModel.username]
-
             }
         }
 

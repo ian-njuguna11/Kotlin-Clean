@@ -4,10 +4,8 @@ import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.request.*
 import io.ktor.routing.*
-import io.ktor.http.*
-import io.ktor.auth.*
-import com.fasterxml.jackson.databind.*
-import com.paul.CreateUser
+import com.paul.UserInterfaces.CreateUser
+import com.paul.UserInterfaces.GetUser
 import com.paul.entity.UserDataClass
 import io.ktor.jackson.*
 import io.ktor.features.*
@@ -35,6 +33,15 @@ fun Application.module() {
             post(){
                 val login_user = call.receive<UserDataClass>()
 
+                val getUser = GetUser()
+                val user = getUser.getUser(login_user.email, login_user.password)
+
+                if (user.email == ""){
+                    call.respond(mapOf("ERROR" to "user email and password do not match"))
+                    return@post
+                }
+
+                call.respond(mapOf("OK" to "successfully logged in"))
 
             }
 
