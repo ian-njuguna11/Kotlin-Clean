@@ -1,6 +1,7 @@
 package com.paul
 
 import com.paul.entity.UserDataClass
+import com.paul.port.UserCRUD
 
 class CreateUser(val user: UserDataClass): ICreateUser{
 
@@ -8,15 +9,17 @@ class CreateUser(val user: UserDataClass): ICreateUser{
 
     override fun validateFields(): String {
 
+        var message = "success"
+
         if (!this.validator.validateAge(this.user.age))
-            return "Age has to be between 1 and 100 years old"
+            message = "Age has to be between 1 and 100 years old"
         else if (!this.validator.validatePassword(this.user.password))
-            return "Keep a stronger password"
+            message = "Keep a stronger password"
         else if (!this.validator.validateUsername(this.user.username))
-            return "The username cannot be more than 10 characters long"
+            message = "The username cannot be more than 10 characters long"
         else if (!this.validator.validateEmail(this.user.email))
-            return "Enter a valid email"
-        return ""
+            message = "Enter a valid email"
+        return message
 
     }
 
@@ -32,14 +35,18 @@ class CreateUser(val user: UserDataClass): ICreateUser{
 
     override fun addUser(): String {
 
-        if (this.validateFields() != "") return this.validateFields()
+        var crud = UserCRUD()
+        val createResponse = crud.createUser(
+            this.user.username, this.user.email, this.user.password, this.user.age
+        )
 
-        else if (this.findUser()) return "User already found"
+        if (this.validateFields() != "success")
+            return this.validateFields()
 
-        Users.userList.add(this.user)
+        if (!createResponse)
+            return "user already exists"
 
         return "success"
     }
-
 
 }

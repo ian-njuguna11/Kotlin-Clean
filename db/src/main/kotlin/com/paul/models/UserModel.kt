@@ -9,3 +9,4 @@ object UserModel: IntIdTable("users") {
     val password = varchar("password", 100)
     val age = integer("age")
 }
+
