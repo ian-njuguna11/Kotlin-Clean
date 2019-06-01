@@ -5,6 +5,7 @@ import com.paul.models.UserModel
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
+@Suppress("CAST_NEVER_SUCCEEDS")
 class UserCRUD {
 
     /*
@@ -104,6 +105,14 @@ class UserCRUD {
             query.forEach {
                 user.email = it[UserModel.email]
                 user.username = it[UserModel.username]
+
+                user.id = it[UserModel.id].toString().toInt()
+                /*
+                it[UserModel.id] is Entity<Int> type which cannot be directly converted to an integer, which is the type
+                for user.id
+
+                We therefore convert it to a string then to an integer
+                 */
             }
         }
 

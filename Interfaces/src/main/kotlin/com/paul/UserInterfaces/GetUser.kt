@@ -1,7 +1,6 @@
 package com.paul.UserInterfaces
 
 import com.paul.IGetUser
-import com.paul.Users
 import com.paul.entity.UserDataClass
 import com.paul.port.UserCRUD
 
@@ -11,6 +10,6 @@ class GetUser: IGetUser {
         val userCRUD = UserCRUD()
 
         return userCRUD.getSingleUser(email, password)
-    }
 
+    }
 }

@@ -1,6 +1,5 @@
 package com.paul
 
-import com.paul.models.CityModel
 import com.paul.models.UserModel
 import org.jetbrains.exposed.dao.IntIdTable
 import org.jetbrains.exposed.sql.*
