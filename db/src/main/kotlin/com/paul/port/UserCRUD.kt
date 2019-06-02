@@ -6,19 +6,28 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
 @Suppress("CAST_NEVER_SUCCEEDS")
-class UserCRUD {
+class UserCRUD(dbType: String = "") {
 
     /*
     This class performs CRUD operations on the class table in the database
     NOTE: set DB_USER and DB_PASSWORD fields as the user and password of the Postgresql database you are currently using
      */
 
-    constructor(){
-        Database.connect(
-            "jdbc:postgresql://localhost:5432/kotlin_clean",
-            driver = "org.postgresql.Driver",
-            user = System.getenv("DB_USER"), password = System.getenv("DB_PASSWORD")
-        )
+    init {
+        if (dbType == "test"){
+            Database.connect(
+                "jdbc:postgresql://localhost:5432/kotlin_clean_test",
+                driver = "org.postgresql.Driver",
+                user = System.getenv("DB_USER"), password = System.getenv("DB_PASSWORD")
+            )
+        }
+        else {
+            Database.connect(
+                "jdbc:postgresql://localhost:5432/kotlin_clean",
+                driver = "org.postgresql.Driver",
+                user = System.getenv("DB_USER"), password = System.getenv("DB_PASSWORD")
+            )
+        }
     }
 
     fun createUser(
@@ -73,7 +82,6 @@ class UserCRUD {
         return returnValue
     }
 
-
     fun getAllUsers(): ArrayList<UserDataClass>{
 
         val users: ArrayList<UserDataClass> = ArrayList()
@@ -108,10 +116,9 @@ class UserCRUD {
 
                 user.id = it[UserModel.id].toString().toInt()
                 /*
-                it[UserModel.id] is Entity<Int> type which cannot be directly converted to an integer, which is the type
-                for user.id
+                it[UserModel.id] is Entity<Int> type which cannot be directly converted to an integer.
 
-                We therefore convert it to a string then to an integer
+                We therefore convert it to a string then to an integer to match the user.id datatype.
                  */
             }
         }

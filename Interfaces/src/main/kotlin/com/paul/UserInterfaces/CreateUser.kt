@@ -6,7 +6,7 @@ import com.paul.Validator
 import com.paul.entity.UserDataClass
 import com.paul.port.UserCRUD
 
-class CreateUser(val user: UserDataClass): ICreateUser {
+class CreateUser(val user: UserDataClass, val dbType: String = ""): ICreateUser {
 
     val validator = Validator()
 
@@ -38,7 +38,12 @@ class CreateUser(val user: UserDataClass): ICreateUser {
 
     override fun addUser(): String {
 
-        var crud = UserCRUD()
+        var crud: UserCRUD = UserCRUD()
+
+        if (dbType == "test") {
+            crud = UserCRUD(dbType="test")
+        }
+
         val createResponse = crud.createUser(
             this.user.username, this.user.email, this.user.password, this.user.age
         )

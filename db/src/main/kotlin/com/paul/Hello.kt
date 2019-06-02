@@ -7,6 +7,5 @@ fun main(args: Array<String>) {
     val initDb = InitDb()
     initDb.createAllTables()
 
-
 }
 

@@ -2,8 +2,6 @@ package com.example
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.auth0.jwt.interfaces.DecodedJWT
-import com.paul.SimpleJWT
 import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.request.*
@@ -23,7 +21,6 @@ var users = mutableListOf(
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 fun Application.module() {
-
 
     install (ContentNegotiation){
         jackson {
