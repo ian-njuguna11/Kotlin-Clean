@@ -2,7 +2,7 @@ package com.example
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.auth0.jwt.exceptions.JWTCreationException
+import com.auth0.jwt.interfaces.DecodedJWT
 import com.paul.SimpleJWT
 import io.ktor.application.*
 import io.ktor.response.*
@@ -24,7 +24,6 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 fun Application.module() {
 
-    val simpleJWT = SimpleJWT("12095071")
 
     install (ContentNegotiation){
         jackson {
@@ -34,11 +33,17 @@ fun Application.module() {
 
 
     routing {
-
         route("/"){
             get{
+                val authToken = call.request.header("Authorization")!!.split(" ")[1]
+                val algorithm = Algorithm.HMAC256("12095071")
+                val verifier = JWT.require(algorithm)
+                    .build()
 
+                val jwt = verifier.verify(authToken)
+                println(jwt)
 
+                call.respond(mapOf("OK" to "cool"))
 
             }
         }
@@ -50,13 +55,10 @@ fun Application.module() {
             // login route
             post {
 
-                var token = ""
                 val algorithm = Algorithm.HMAC256("12095071")
 
-
-
-
                 val loginUser = call.receive<UserDataClass>()
+
 
                 val getUser = GetUser()
                 val user = getUser.getUser(loginUser.email, loginUser.password)
@@ -72,7 +74,7 @@ fun Application.module() {
                     return@post
                 }
 
-                token = JWT.create()
+                val token = JWT.create()
                     .withClaim("id", user.id)
                     .sign(algorithm)
 
