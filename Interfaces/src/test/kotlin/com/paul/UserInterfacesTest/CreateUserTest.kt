@@ -1,8 +1,6 @@
 package com.paul.UserInterfacesTest
 
 import com.paul.InitDb
-import com.paul.UserInterfaces.CreateUser
-import com.paul.entity.UserDataClass
 import org.junit.Test
 import org.junit.Before
 import org.junit.After

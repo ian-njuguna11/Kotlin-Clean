@@ -10,8 +10,6 @@
         <module>Domain</module>
         <module>UseCases</module>
         <module>Interfaces</module>
-        <module>db</module>
-        <module>api-cleancode</module>
     </modules>
     <packaging>pom</packaging>
 

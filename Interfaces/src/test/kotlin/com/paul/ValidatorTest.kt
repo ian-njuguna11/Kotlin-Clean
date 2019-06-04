@@ -1,10 +1,8 @@
 package com.paul
 
-import com.paul.entity.UserDataClass
 import org.junit.Test
 import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.After
 
 class ValidatorTest {
 

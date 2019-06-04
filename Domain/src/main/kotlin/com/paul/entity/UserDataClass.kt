@@ -1,11 +1,8 @@
 package com.paul.entity
 
-data class UserDataClass (
-    var username: String = "",
-    var email: String = "",
-    var password: String = "",
-    var age: Int = 0,
-    var id: Int = 0
+data class UserDataClass(
+    var id: Int = 0,
+    var firstName: String = "",
+    var lastName: String = "",
+    var nationalId: Int = 0
 )
-
-
