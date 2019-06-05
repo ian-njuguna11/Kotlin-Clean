@@ -3,7 +3,7 @@ package com.paul.Validators
 import com.paul.entity.UserDataClass
 import com.paul.port.*
 
-class UserValidations(val user: UserDataClass = UserDataClass()) {
+class UserValidations(var user: UserDataClass = UserDataClass()) {
 
     fun validatePassword() {
 
@@ -19,7 +19,6 @@ class UserValidations(val user: UserDataClass = UserDataClass()) {
             throw InvalidPasswordException("The password must contain a number")
         }
 
-
     }
 
     fun validateEmail() {
@@ -32,8 +31,51 @@ class UserValidations(val user: UserDataClass = UserDataClass()) {
 
     }
 
-    fun validateUsername(){
+    fun validateNationalId(){
+
+        if (user.nationalId < 0) throw InvalidNationalIdException("Too low to be a national ID")
+
+        else if (user.nationalId > 10000000) throw InvalidNationalIdException("Too high to be a national ID")
 
     }
+
+    fun validateName(){
+
+        // validate the first name
+        val userNames = listOf(user.firstName, user.lastName)
+
+        for (name in userNames) {
+            try {
+                BaseValidator.validateSpecialCharacterNotInString(name)
+                BaseValidator.validateStringDoesNotontainInteger(name)
+            } catch (e: ContainsIntegerException) {
+                throw InvalidUserNameException("name cannot contain special characters")
+            } catch (e: SpecialCharacterException) {
+                throw InvalidUserNameException("name cannot contain special characters")
+            }
+        }
+
+    }
+
+    fun validateBlankFields(){
+
+        if ( user.nationalId == 0 || user.email == "" || user.firstName == "" || user.lastName == "" || user.password == ""){
+            throw BlankFieldException("none of the user fields can be left blank")
+        }
+
+    }
+
+
+
+    fun validateAll(){
+
+        this.validateName()
+        this.validateEmail()
+        this.validateNationalId()
+        this.validatePassword()
+        this.validateBlankFields()
+
+    }
+
 
 }

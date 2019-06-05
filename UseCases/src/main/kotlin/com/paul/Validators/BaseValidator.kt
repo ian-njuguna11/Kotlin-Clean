@@ -8,7 +8,7 @@ open class BaseValidator {
 
 
         fun validateMinimumStringLength(stringToValidate: String, minLength: Int) {
-            val maxLengthPattern = "^.{8,}$".toRegex()
+            val maxLengthPattern = "^.{$minLength,}$".toRegex()
             if (!maxLengthPattern.matches(stringToValidate))
                 throw MinimumLengthException("String is too short")
         }
@@ -25,6 +25,13 @@ open class BaseValidator {
             val specialCharacterPattern = ".*[\$&+,:;=?@#|].*".toRegex()
             if (!specialCharacterPattern.containsMatchIn(stringToValidate))
                 throw SpecialCharacterException("no special characters in the string")
+        }
+
+        fun validateSpecialCharacterNotInString(stringToValidate: String){
+
+            val specialCharacterPattern = ".*[\$&+,:;=?@#|].*".toRegex()
+            if (specialCharacterPattern.containsMatchIn(stringToValidate))
+                throw SpecialCharacterException("special characters in the string")
         }
 
         fun validateEmail(stringToValidate: String) {
@@ -48,6 +55,13 @@ open class BaseValidator {
             if (!containsIntegerPattern.containsMatchIn(stringToValidate))
                 throw ContainsIntegerException("Integer not present")
         }
+
+        fun validateStringDoesNotontainInteger(stringToValidate: String) {
+            val containsIntegerPattern = ".*[0-9].*".toRegex()
+            if (containsIntegerPattern.containsMatchIn(stringToValidate))
+                throw ContainsIntegerException("Integer is present")
+        }
+
     }
 
 }

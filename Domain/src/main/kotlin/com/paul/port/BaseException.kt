@@ -15,7 +15,15 @@ class ContainsIntegerException(message: String): Exception(message)
 class InvalidEmailPatternException(message: String): Exception(message)
 
 
-// general exceptions
+// general User exceptions
 class InvalidPasswordException(message: String): Exception(message)
 
 class InvalidEmailException(message: String): Exception(message)
+
+class InvalidNationalIdException(message: String): Exception(message)
+
+class InvalidUserNameException(message: String): Exception(message)
+
+class UserExistsException(message: String): Exception(message)
+
+class BlankFieldException(message: String): Exception(message)

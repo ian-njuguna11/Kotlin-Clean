@@ -2,12 +2,9 @@ package com.paul
 
 import com.paul.Validators.UserValidations
 import com.paul.entity.UserDataClass
-import com.paul.port.InvalidEmailException
-import com.paul.port.InvalidPasswordException
+import com.paul.port.*
 import kotlin.test.Test
 import kotlin.test.BeforeTest
-
-
 //import org.junit.Test
 
 class UserValidationTest {
@@ -64,6 +61,36 @@ class UserValidationTest {
         userVal.validateEmail()
 
     }
+
+    @Test(expected = InvalidNationalIdException::class)
+    fun testInvalidNationalId(){
+
+        user.nationalId = -1
+        val userVal = UserValidations(user)
+        userVal.validateNationalId()
+
+    }
+
+    @Test(expected = InvalidUserNameException::class)
+    fun testInvalidUserName(){
+
+        user.firstName = "paul@"
+        user.lastName = "wekesa32"
+        val userVal = UserValidations(user)
+        userVal.validateName()
+
+    }
+
+    @Test(expected = BlankFieldException::class)
+    fun testSingleBlankField(){
+
+        user.email = ""
+        val userVal = UserValidations(user)
+        userVal.validateBlankFields()
+
+    }
+
+
 
 
 
