@@ -17,6 +17,7 @@ class FindUserTest {
     fun initialSetUp() {
 
         val userList = listOf(
+
             UserDataClass(
                 id = 1, email = "paul@paul.com", firstName = "Paul", lastName = "Wekesa",
                 nationalId = 33575433, password = "5trathm0re@123"
@@ -31,7 +32,9 @@ class FindUserTest {
             id = 3, email = "gidi@gidi.com", firstName = "Gideon", lastName = "Mukosi", password = "LongPassword#",
             nationalId = 33442211
         )
+
         findUser = FindUser(user, testUsers)
+
     }
 
     
@@ -61,7 +64,7 @@ class FindUserTest {
 
         // change national ID to one already existing
         findUser!!.user.nationalId = 33575433
-        val userFound = findUser!!.findUserByNationslId()
+        val userFound = findUser!!.findUserByNationalId()
         val validator = UserValidations(userFound)
         validator.validateBlankFields()
 
@@ -70,12 +73,10 @@ class FindUserTest {
     @Test(expected = BlankFieldException::class)
     fun findExistingUserByNationalId(){
 
-        val userFound = findUser!!.findUserByNationslId()
+        val userFound = findUser!!.findUserByNationalId()
         val validator = UserValidations(userFound)
         validator.validateBlankFields()
 
     }
-
-
 
 }

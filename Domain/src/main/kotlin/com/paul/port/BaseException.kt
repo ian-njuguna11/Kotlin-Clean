@@ -24,6 +24,8 @@ class InvalidNationalIdException(message: String): Exception(message)
 
 class InvalidUserNameException(message: String): Exception(message)
 
-class UserExistsException(message: String): Exception(message)
-
 class BlankFieldException(message: String): Exception(message)
+
+class UserNotFoundException(message: String): Exception(message)
+
+class UserAlreadyExistsException(message: String): Exception(message)

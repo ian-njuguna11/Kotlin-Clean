@@ -13,6 +13,7 @@ class FindUser(var user: UserDataClass, val userList: ArrayList<UserDataClass> =
         return UserDataClass()
     }
 
+
     fun findUserById(): UserDataClass{
         for (singleUser in userList){
             if (singleUser.id == user.id) return singleUser
@@ -20,7 +21,7 @@ class FindUser(var user: UserDataClass, val userList: ArrayList<UserDataClass> =
         return UserDataClass()
     }
 
-    fun findUserByNationslId(): UserDataClass{
+    fun findUserByNationalId(): UserDataClass{
         for (singleUser in userList){
             if (singleUser.nationalId == user.nationalId) return singleUser
         }
@@ -48,7 +49,7 @@ class FindUser(var user: UserDataClass, val userList: ArrayList<UserDataClass> =
         }
 
         try {
-            validator.user = this.findUserByNationslId()
+            validator.user = this.findUserByNationalId()
             validator.validateBlankFields()
             return true
         } catch(e: BlankFieldException){
