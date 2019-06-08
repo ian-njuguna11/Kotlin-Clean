@@ -1,4 +1,4 @@
-package com.paul.Validators
+package com.paul.validators
 
 import com.paul.port.*
 
@@ -50,16 +50,30 @@ open class BaseValidator {
                 throw InvalidEmailPatternException("pattern entered does not match one of an email")
         }
 
+        // throws an error if there is no integer in the string 'stringToValidate'
         fun validateStringContainsInteger(stringToValidate: String) {
             val containsIntegerPattern = ".*[0-9].*".toRegex()
             if (!containsIntegerPattern.containsMatchIn(stringToValidate))
                 throw ContainsIntegerException("Integer not present")
         }
 
+        // throws error if there is an integer in the string 'stringToValidate'
+        fun validateStringDoesNotContainInteger(stringToValidate: String){
+            val containsIntegerPattern = ".*[0-9].*".toRegex()
+            if (containsIntegerPattern.containsMatchIn(stringToValidate))
+                throw ContainsIntegerException("Integer present")
+        }
+
         fun validateStringDoesNotontainInteger(stringToValidate: String) {
             val containsIntegerPattern = ".*[0-9].*".toRegex()
             if (containsIntegerPattern.containsMatchIn(stringToValidate))
                 throw ContainsIntegerException("Integer is present")
+        }
+
+        fun validateNonNegativeInteger(integerToValidate: Int){
+            if (integerToValidate < 0){
+                throw NegativeIntegerException("integer should not be negative")
+            }
         }
 
     }

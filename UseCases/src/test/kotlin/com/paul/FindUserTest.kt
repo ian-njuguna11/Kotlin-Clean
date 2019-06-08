@@ -1,7 +1,7 @@
 package com.paul
 
 import com.paul.UserUseCases.FindUser
-import com.paul.Validators.UserValidations
+import com.paul.validators.UserValidations
 import com.paul.entity.UserDataClass
 import com.paul.port.BlankFieldException
 import org.junit.Before

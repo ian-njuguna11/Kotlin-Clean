@@ -29,3 +29,11 @@ class BlankFieldException(message: String): Exception(message)
 class UserNotFoundException(message: String): Exception(message)
 
 class UserAlreadyExistsException(message: String): Exception(message)
+
+//general Post Exceptions
+
+class InvalidPostNameException(message: String): Exception(message)
+
+class InvalidPostIdException(message: String): Exception(message)
+
+class NegativeIntegerException(message: String): Exception(message)

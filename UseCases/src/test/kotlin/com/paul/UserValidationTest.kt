@@ -1,6 +1,6 @@
 package com.paul
 
-import com.paul.Validators.UserValidations
+import com.paul.validators.UserValidations
 import com.paul.entity.UserDataClass
 import com.paul.port.*
 import kotlin.test.Test

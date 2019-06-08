@@ -1,13 +1,13 @@
 package com.paul.UserUseCases
 
-import com.paul.Validators.UserValidations
+import com.paul.validators.UserValidations
 import com.paul.entity.UserDataClass
 import com.paul.port.BlankFieldException
 import com.paul.port.UserNotFoundException
 
 class EditUser(val user: UserDataClass, val userList: ArrayList<UserDataClass>) {
 
-    fun findIfUserExists(){
+    private fun findIfUserExists(){
         val findUser = FindUser(user, userList)
         try{
             val validator = UserValidations(findUser.findUserById())
@@ -17,7 +17,7 @@ class EditUser(val user: UserDataClass, val userList: ArrayList<UserDataClass>) 
         }
     }
 
-    fun validateUserFields(){
+    private fun validateUserFields(){
 
         val validator = UserValidations(user)
         validator.validateAll() // throws the appropriate error if the fields are not validated
