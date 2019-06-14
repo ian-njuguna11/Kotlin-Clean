@@ -1,6 +1,6 @@
 package com.paul.entity
 
 data class PostDataClass(
-    var id: Int = 0,
+    var id: Long = 0L,
     var name: String = ""
 )

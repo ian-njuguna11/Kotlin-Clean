@@ -9,8 +9,7 @@
     <modules>
         <module>Domain</module>
         <module>UseCases</module>
-        <module>Interfaces</module>
-        <module>Adapter</module>
+        <module>infra</module>
     </modules>
     <packaging>pom</packaging>
 
