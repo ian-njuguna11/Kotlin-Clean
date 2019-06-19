@@ -10,6 +10,7 @@
         <module>Domain</module>
         <module>UseCases</module>
         <module>infra</module>
+        <module>infrastructure</module>
     </modules>
     <packaging>pom</packaging>
 
