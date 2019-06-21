@@ -4,6 +4,7 @@ import com.paul.entity.UserDataClass
 import com.paul.port.UserAlreadyExistsException
 import com.paul.port.ValidationException
 import com.paul.repo.IUserRepo
+import com.paul.validators.UserValidator
 import java.util.*
 
 class CreateUser(
@@ -11,12 +12,13 @@ class CreateUser(
     var userRepo: IUserRepo
 ) {
 
+    val userValidator = UserValidator(user)
+
     private fun validateInputDetails(){
         when{
             user.email.isEmpty() -> throw ValidationException("Email")
             user.firstName.isEmpty() -> throw ValidationException("First Name")
             user.lastName.isEmpty() -> throw ValidationException("Last Name")
-            user.nationalId.isEmpty() -> throw ValidationException("National ID")
             user.password.isEmpty() -> throw ValidationException("Password")
         }
     }
@@ -24,7 +26,6 @@ class CreateUser(
     // checks if user with similar credentials in the system already exists
     private fun findUser(){
         when {
-            userRepo.findByNationalId(user.nationalId).isPresent -> throw UserAlreadyExistsException("User with national ID ${user.nationalId} already exists")
             userRepo.findByEmail(user.email).isPresent -> throw UserAlreadyExistsException("User with email ${user.email} already exists")
         }
     }

@@ -13,4 +13,5 @@ class IntegerException(message: String): Exception(message)
 
 
 // user specific exceptions
+class UserValidationException(message: String): Exception(message)
 class InvalidEmailException(message: String): Exception(message)

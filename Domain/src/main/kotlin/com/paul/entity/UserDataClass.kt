@@ -6,7 +6,6 @@ data class UserDataClass(
     var email: String = "",
     var firstName: String = "",
     var lastName: String = "",
-    var nationalId: String = "",
     var password: String = "",
     var description: String = ""
 
