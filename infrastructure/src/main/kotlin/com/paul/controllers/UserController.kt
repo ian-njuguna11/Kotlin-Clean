@@ -2,6 +2,7 @@ package com.paul.controllers
 
 import com.paul.entity.UserDataClass
 import com.paul.port.ValidationException
+import com.paul.ports.UserPorts
 import com.paul.userRepo
 import com.paul.models.User as UserModel
 import io.ktor.application.call
@@ -59,8 +60,9 @@ fun Routing.users() {
         val loginUser = call.receive<UserDataClass>()
 
         val user: Map<String, String>
+
         try {
-            user = userRepo.findUserByEmail(loginUser.email, loginUser.password)!!
+            user = userRepo.findUserByEmail(loginUser.email, UserPorts.hashPassword( loginUser.password))!!
         } catch (e: ValidationException) {
             call.respond(HttpStatusCode.NotAcceptable, mapOf("error" to e.message))
             return@post
@@ -70,8 +72,6 @@ fun Routing.users() {
             call.respond(HttpStatusCode.NotFound, mapOf("error" to "user not found"))
             return@post
         }
-
         call.respond(user)
-
     }
 }

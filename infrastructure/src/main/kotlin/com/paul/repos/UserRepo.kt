@@ -2,6 +2,7 @@ package com.paul.repos
 
 import com.paul.entity.UserDataClass
 import com.paul.models.User
+import com.paul.ports.UserPorts
 import com.paul.validators.UserValidator
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.insert
@@ -27,7 +28,7 @@ class UserRepo {
                 it[email] = user.email
                 it[firstName] = user.firstName
                 it[lastName] = user.lastName
-                it[password] = user.password
+                it[password] = UserPorts.hashPassword( user.password )
             }
         }
     }

@@ -2,17 +2,11 @@ package com.paul
 
 import com.paul.controllers.users
 import com.paul.repos.UserRepo
-import com.paul.models.User as UserModel
-import com.paul.validators.UserValidator
+import com.paul.models.User as UserMode
 import io.ktor.application.Application
-import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
-import io.ktor.features.NotFoundException
-import io.ktor.features.StatusPages
-import io.ktor.http.HttpStatusCode
 import io.ktor.jackson.jackson
-import io.ktor.response.respond
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
@@ -22,6 +16,7 @@ import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.StdOutSqlLogger
 import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.transactions.transaction
+import com.paul.models.User as UserModel
 
 var userRepo = UserRepo()
 
@@ -38,12 +33,6 @@ fun Application.mainModule(){
         jackson {  }
     }
 
-//    install(StatusPages){
-//        status(HttpStatusCode.NotFound){
-//            call.respond(mapOf("error" to "page not found"))
-//        }
-//    }
-
     routing {
         users()
     }
@@ -51,8 +40,12 @@ fun Application.mainModule(){
 
 
 fun initDb(){
+    val dbName = System.getenv("DB_NAME") ?: ""
+    val dbUser = System.getenv("DB_USER") ?: ""
+    val dbPassword = System.getenv("DB_PASSWORD")
+
     Database.connect(
-        "jdbc:postgresql://localhost:5432/postgres_demo?user=strath&password=5trathm0re",
+        "jdbc:postgresql://localhost:5432/$dbName?user=$dbUser&password=$dbPassword",
         driver="org.h2.Driver"
     )
 
@@ -61,4 +54,5 @@ fun initDb(){
         SchemaUtils.drop(UserModel)
         SchemaUtils.create(UserModel)
     }
+
 }
