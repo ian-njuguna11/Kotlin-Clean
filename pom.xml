@@ -6,6 +6,7 @@
     <groupId>com.paul</groupId>
     <artifactId>cleancode</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>Domain</module>
         <module>UseCases</module>
@@ -23,6 +24,12 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
@@ -40,6 +47,12 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8</version>
+        </dependency>
+
     </dependencies>
 
     <build>
