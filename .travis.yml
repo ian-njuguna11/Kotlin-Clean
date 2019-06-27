@@ -5,8 +5,3 @@ sudo: required
 jdk:
   - openjdk11
 
-script:
-  - sudo mvn clean verify
-  - sudo mvn install
-
-install: true
