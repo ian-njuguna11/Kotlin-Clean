@@ -39,6 +39,7 @@ fun Routing.users() {
     }
 
     get("/users/{user_id}") {
+
         val id: Int?
 
         try {
@@ -47,6 +48,7 @@ fun Routing.users() {
             call.respond(HttpStatusCode.NotAcceptable, mapOf("error" to "user_id must be a number"))
             return@get
         }
+
         val user = userRepo.findUserById(id)
         if (user.isEmpty()) {
             call.respond(HttpStatusCode.NotFound, mapOf("error" to "user not found"))
