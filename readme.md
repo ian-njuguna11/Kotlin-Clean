@@ -1,4 +1,8 @@
+[![Build Status](https://travis-ci.com/Paul-weqe/Kotlin-Clean.svg?branch=master)](https://travis-ci.com/Paul-weqe/Kotlin-Clean)
+
+
 ## A try at implementing kotlin for clean architecture
+
 
 This project will implement the clean architecture by building a voting system. 
 
