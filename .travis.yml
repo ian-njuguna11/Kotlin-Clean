@@ -1,2 +1,6 @@
 language: java
-jdk: oraclejdk11-rc
+dist: xenial
+sudo: required
+
+jdk:
+  - openjdk11
