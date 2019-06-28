@@ -50,4 +50,20 @@ class PoliticalPostRepo: BaseRepo(){
         return politicalPosts
 
     }
+
+    fun findRepoById(id: Long): HashMap<String, String>{
+        val politicalPost = HashMap<String, String>()
+
+
+        transaction {
+            PoliticalPost.select{
+                PoliticalPost.id eq id
+            }.map {
+                politicalPost["id"] = it[PoliticalPost.id].toString()
+                politicalPost["name"] = it[PoliticalPost.name]
+            }
+        }
+
+        return politicalPost
+    }
 }

@@ -10,6 +10,7 @@ import io.ktor.routing.Routing
 import io.ktor.routing.get
 import io.ktor.routing.post
 import org.jetbrains.exposed.exceptions.ExposedSQLException
+import java.lang.NumberFormatException
 
 fun Routing.politicalPost(){
 
@@ -29,6 +30,35 @@ fun Routing.politicalPost(){
         }
 
         call.respond(HttpStatusCode.Created, mapOf("OK" to true))
+    }
+
+    get("/political-posts/id/{post_id}"){
+
+        val id: Long?
+
+        try{
+            id = call.parameters["post_id"]!!.toLong()
+        } catch(e: NumberFormatException){
+            call.respond(HttpStatusCode.NotAcceptable, mapOf("error" to "post_id must be a number"))
+            return@get
+        }
+
+        val post = politicalPostRepo.findRepoById(id)
+
+        if (post.isEmpty())
+            call.respond(HttpStatusCode.NotFound, mapOf("error" to "political post could not be found"))
+        else
+            call.respond(post)
+
+    }
+
+    get("/political-posts/name/{post_name}"){
+        val name: String = call.parameters["post_name"].toString()
+        val post = politicalPostRepo.findPostByName(name)
+        if (post.isEmpty())
+            call.respond(HttpStatusCode.NotFound, mapOf("error" to "political post could not be found"))
+        else
+            call.respond(post)
     }
 
 }

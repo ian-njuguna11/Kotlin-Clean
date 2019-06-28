@@ -24,9 +24,10 @@ class UserValidator(
 
     }
 
+
     fun validateName(firstOrLast: String){
-        var name: String = ""
-        var placeHolder: String = ""
+        var name = ""
+        var placeHolder = ""
 
         if (firstOrLast == "first"){
             name = user.firstName; placeHolder = "first name"

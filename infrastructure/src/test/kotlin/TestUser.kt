@@ -36,6 +36,7 @@ class TestUser{
             assertEquals( responseList, response.content!!.lines())
         }
     }
+
     @Test
     fun getSingleUserTest() = withTestApplication(Application::mainModule){
         createUserTest()
