@@ -40,10 +40,10 @@ fun Routing.users() {
 
     get("/users/{user_id}") {
 
-        val id: Int?
+        val id: Long?
 
         try {
-            id = call.parameters["user_id"]!!.toInt()
+            id = call.parameters["user_id"]!!.toLong()
         } catch (e: NumberFormatException) { // checks when 'user_id' is not a number
             call.respond(HttpStatusCode.NotAcceptable, mapOf("error" to "user_id must be a number"))
             return@get

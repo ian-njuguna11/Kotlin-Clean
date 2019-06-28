@@ -19,37 +19,29 @@ fun Routing.politicalPost(){
     }
 
     post("/political-posts"){
-
         val newPoliticalPost = call.receive<PoliticalPostDataClass>()
-
         try {
             politicalPostRepo.create(newPoliticalPost)
         } catch(e: ExposedSQLException){
             call.respond(HttpStatusCode.NotAcceptable , mapOf("error" to "political post with that name already exists"))
             return@post
         }
-
         call.respond(HttpStatusCode.Created, mapOf("OK" to true))
     }
 
     get("/political-posts/id/{post_id}"){
-
         val id: Long?
-
         try{
             id = call.parameters["post_id"]!!.toLong()
         } catch(e: NumberFormatException){
             call.respond(HttpStatusCode.NotAcceptable, mapOf("error" to "post_id must be a number"))
             return@get
         }
-
-        val post = politicalPostRepo.findRepoById(id)
-
+        val post = politicalPostRepo.findPoliticalPostById(id)
         if (post.isEmpty())
             call.respond(HttpStatusCode.NotFound, mapOf("error" to "political post could not be found"))
         else
             call.respond(post)
-
     }
 
     get("/political-posts/name/{post_name}"){

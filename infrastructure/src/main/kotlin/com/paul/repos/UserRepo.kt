@@ -77,7 +77,7 @@ class UserRepo: BaseRepo() {
 
     }
 
-    fun findUserById(id: Int): HashMap<String, String> {
+    fun findUserById(id: Long): HashMap<String, String> {
         /*
         *
          */

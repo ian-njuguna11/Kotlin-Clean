@@ -1,9 +1,8 @@
 package com.paul.models
 
-import org.jetbrains.exposed.dao.IntIdTable
+import org.jetbrains.exposed.dao.LongIdTable
 
-object User: IntIdTable("users"){
-
+object User: LongIdTable("users"){
     var email = varchar("email", 50).uniqueIndex()
     var password = varchar("password", 100)
     var firstName = varchar("firstName", 50)

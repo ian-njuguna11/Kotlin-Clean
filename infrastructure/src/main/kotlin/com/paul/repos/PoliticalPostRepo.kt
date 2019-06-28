@@ -51,7 +51,7 @@ class PoliticalPostRepo: BaseRepo(){
 
     }
 
-    fun findRepoById(id: Long): HashMap<String, String>{
+    fun findPoliticalPostById(id: Long): HashMap<String, String>{
         val politicalPost = HashMap<String, String>()
 
 
