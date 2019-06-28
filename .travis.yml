@@ -9,5 +9,7 @@ services:
   - postgresql
 
 before_script:
-  - psql -c 'create database kotlin_clean_test;' -U postgres
+  - psql -c "create database kotlin_clean_test;" -U postgres
+  - psql -c "create user kotlin_user with encrypted password 'P@ssword';" -U postgres
+  - psql -c "grant all on database kotlin_clean_test to kotlin_user;" -U postgres
 
