@@ -1,6 +1,9 @@
 package com.paul
 
+import com.paul.controllers.politicalPost
 import com.paul.controllers.users
+import com.paul.models.PoliticalPost
+import com.paul.repos.PoliticalPostRepo
 import com.paul.repos.UserRepo
 import com.paul.models.User as UserMode
 import io.ktor.application.Application
@@ -13,12 +16,11 @@ import io.ktor.server.netty.Netty
 import io.ktor.util.KtorExperimentalAPI
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.StdOutSqlLogger
-import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.transactions.transaction
 import com.paul.models.User as UserModel
 
 var userRepo = UserRepo()
+var politicalPostRepo = PoliticalPostRepo()
 
 @KtorExperimentalAPI
 fun main(){
@@ -35,6 +37,7 @@ fun Application.mainModule(){
 
     routing {
         users()
+        politicalPost()
     }
 }
 
@@ -50,9 +53,12 @@ fun initDb(){
     )
 
     transaction {
-        addLogger(StdOutSqlLogger)
         SchemaUtils.drop(UserModel)
+        SchemaUtils.drop(PoliticalPost)
+
         SchemaUtils.create(UserModel)
+        SchemaUtils.create(PoliticalPost)
+
     }
 
 }

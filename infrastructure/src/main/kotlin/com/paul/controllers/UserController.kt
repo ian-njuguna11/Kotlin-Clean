@@ -12,7 +12,7 @@ import io.ktor.response.respond
 import io.ktor.routing.Routing
 import io.ktor.routing.get
 import io.ktor.routing.post
-import org.postgresql.util.PSQLException
+import org.jetbrains.exposed.exceptions.ExposedSQLException
 import java.lang.NumberFormatException
 
 fun Routing.users() {
@@ -27,7 +27,7 @@ fun Routing.users() {
 
         try {
             userRepo.create(newUser)
-        } catch (e: PSQLException) {
+        } catch (e: ExposedSQLException) {
             call.respond(mapOf("error" to "email already used"))
             return@post
         }

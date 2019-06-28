@@ -10,14 +10,7 @@ import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class UserRepo {
-
-    init {
-        Database.connect(
-            "jdbc:postgresql://localhost:5432/postgres_demo?user=strath&password=5trathm0re",
-            driver="org.h2.Driver"
-        )
-    }
+class UserRepo: BaseRepo() {
 
     fun create(user: UserDataClass){
         val validator = UserValidator(user)
