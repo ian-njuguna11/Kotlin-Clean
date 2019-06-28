@@ -1,5 +1,5 @@
-package com.paul
-
+import com.paul.initDb
+import com.paul.mainModule
 import io.ktor.application.Application
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
@@ -8,10 +8,10 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.setBody
 import kotlin.test.*
 
-class UserTests{
+class TestUser{
 
     @Test
-    fun testCreateUser() = withTestApplication(Application::mainModule){
+    fun createUserTest() = withTestApplication(Application::mainModule){
         initDb()
         handleRequest(HttpMethod.Post, "/users"){
             addHeader("Accept", "application/json")
@@ -22,9 +22,10 @@ class UserTests{
         }
     }
 
+
     @Test
-    fun testGetAllUsers() = withTestApplication(Application::mainModule){
-        testCreateUser()
+    fun getAllUsersTest() = withTestApplication(Application::mainModule){
+        createUserTest()
         val responseList = listOf("""
             { "1": { "firstName": "Gidi", "lastName": "Mukosi", "id": "1", "email": "gidi@gmail.com" } }
         """.replace(" ", "").trimIndent())
@@ -35,10 +36,9 @@ class UserTests{
             assertEquals( responseList, response.content!!.lines())
         }
     }
-
     @Test
-    fun testGetSingleUser() = withTestApplication(Application::mainModule){
-        testCreateUser()
+    fun getSingleUserTest() = withTestApplication(Application::mainModule){
+        createUserTest()
         val responseList = listOf("""
             {"firstName": "Gidi","lastName": "Mukosi", "id" : "1", "email" : "gidi@gmail.com" }"""
             .replace(" ", "").trimIndent())

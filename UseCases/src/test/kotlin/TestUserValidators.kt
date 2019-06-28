@@ -1,5 +1,6 @@
 import com.paul.entity.UserDataClass
 import com.paul.port.InvalidEmailException
+import com.paul.port.UserValidationException
 import com.paul.validators.UserValidator
 import org.junit.Test
 
@@ -17,7 +18,7 @@ class TestUserValidators{
 
     }
 
-    @Test(expected = InvalidEmailException::class)
+    @Test(expected = UserValidationException::class)
     fun testValidateEmailInvalid(){
         val user = UserDataClass(
             email="paul"

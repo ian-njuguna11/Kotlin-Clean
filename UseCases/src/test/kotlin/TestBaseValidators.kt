@@ -5,55 +5,55 @@ import com.paul.validators.BaseValidator
 import org.junit.Test
 
 
-class TestBaseValidators{
+class BaseValidatorsTest{
 
     @Test
-    fun testMaximumLengthValid(){
+    fun maximumLengthValidTest(){
         BaseValidator.validateMaximumLength("Paul", 5)
     }
 
     @Test(expected = LengthException::class)
-    fun testMaximumLengthInvalid(){
+    fun maximumLengthInvalidTest(){
         BaseValidator.validateMaximumLength("PaulWekesa", 5)
     }
 
     @Test
-    fun testMinimumLengthValid(){
+    fun minimumLengthValidTest(){
         BaseValidator.validateMinimumLength("PaulWekesa", 5)
     }
 
     @Test(expected = LengthException::class)
-    fun testMinimumLengthInvalid(){
+    fun minimumLengthInvalidTest(){
         BaseValidator.validateMinimumLength("Pau", 5)
     }
 
     @Test(expected = SpecialCharacterException::class)
-    fun testSpecialCharacterInStringInvalid(){
+    fun specialCharacterInStringInvalidTest(){
         BaseValidator.validateSpecialCharacterInString("this")
     }
 
     @Test
-    fun testSpecialCharacterInStringValid(){
+    fun specialCharacterInStringValidTest(){
         BaseValidator.validateSpecialCharacterInString("paul@paul.com")
     }
 
     @Test
-    fun testNoSpecialCharacterInStringValid(){
+    fun noSpecialCharacterInStringValidTest(){
         BaseValidator.validateNoSpecialCharacterInString("this")
     }
 
     @Test(expected = SpecialCharacterException::class)
-    fun testNoSpecialCharacterInStringInvalid(){
+    fun noSpecialCharacterInStringInvalidTest(){
         BaseValidator.validateNoSpecialCharacterInString("this@this")
     }
 
     @Test
-    fun testIntegerInStringValid(){
+    fun integerInStringValidTest(){
         BaseValidator.validateIntegerInString("this1")
     }
 
     @Test(expected = IntegerException::class)
-    fun testIntegerInStringInvalid(){
+    fun integerInStringInvalidTest(){
         BaseValidator.validateIntegerInString("thisone")
     }
 
@@ -63,7 +63,7 @@ class TestBaseValidators{
     }
 
     @Test(expected = IntegerException::class)
-    fun testNoIntegerInStringInvalid(){
+    fun noIntegerInStringInvalidTest(){
         BaseValidator.validateNoIntegerInString("this1")
     }
 
