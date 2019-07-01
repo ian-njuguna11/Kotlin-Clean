@@ -3,10 +3,13 @@ package com.paul
 import com.paul.controllers.politicalPost
 import com.paul.controllers.politician
 import com.paul.controllers.users
+import com.paul.controllers.votes
 import com.paul.models.PoliticalPost
+import com.paul.models.Vote as VoteModel
 import com.paul.repos.PoliticalPostRepo
 import com.paul.repos.PoliticianRepo
 import com.paul.repos.UserRepo
+import com.paul.repos.VoteRepo
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
@@ -24,6 +27,7 @@ import com.paul.models.Politician as PoliticianModel
 var userRepo = UserRepo()
 var politicalPostRepo = PoliticalPostRepo()
 var politicianRepo = PoliticianRepo()
+val voteRepo = VoteRepo(userRepo, politicianRepo, politicalPostRepo)
 
 @KtorExperimentalAPI
 fun main(){
@@ -42,6 +46,7 @@ fun Application.mainModule(){
         users()
         politicalPost()
         politician()
+        votes()
     }
 }
 
@@ -57,6 +62,8 @@ fun initDb(){
     )
 
     transaction {
+
+        SchemaUtils.drop(VoteModel)
         SchemaUtils.drop(PoliticianModel)
         SchemaUtils.drop(UserModel)
         SchemaUtils.drop(PoliticalPost)
@@ -65,6 +72,7 @@ fun initDb(){
         SchemaUtils.create(UserModel)
         SchemaUtils.create(PoliticalPost)
         SchemaUtils.create(PoliticianModel)
+        SchemaUtils.create(VoteModel)
 
     }
 

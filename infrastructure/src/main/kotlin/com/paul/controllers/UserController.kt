@@ -1,6 +1,7 @@
 package com.paul.controllers
 
 import com.paul.entity.UserDataClass
+import com.paul.port.UserDoesNotExistException
 import com.paul.port.ValidationException
 import com.paul.ports.UserPorts
 import com.paul.userRepo
@@ -49,9 +50,12 @@ fun Routing.users() {
             return@get
         }
 
-        val user = userRepo.findUserById(id)
-        if (user.isEmpty()) {
-            call.respond(HttpStatusCode.NotFound, mapOf("error" to "user not found"))
+        val user: HashMap<String, String>?
+
+        try {
+            user = userRepo.findUserById(id)
+        } catch(e: UserDoesNotExistException){
+            call.respond(HttpStatusCode.NotFound, mapOf("error" to e.message))
             return@get
         }
 
@@ -61,19 +65,18 @@ fun Routing.users() {
     post("/users/login") {
         val loginUser = call.receive<UserDataClass>()
 
-        val user: Map<String, String>
+        var user: Map<String, String> = HashMap()
 
         try {
             user = userRepo.findUserByEmail(loginUser.email, UserPorts.hashPassword( loginUser.password))!!
+        } catch(e: UserDoesNotExistException){
+            call.respond(HttpStatusCode.NotFound, mapOf("error" to e.message))
+            return@post
         } catch (e: ValidationException) {
             call.respond(HttpStatusCode.NotAcceptable, mapOf("error" to e.message))
             return@post
         }
 
-        if (user.isEmpty()) {
-            call.respond(HttpStatusCode.NotFound, mapOf("error" to "user not found"))
-            return@post
-        }
         call.respond(user)
     }
 }

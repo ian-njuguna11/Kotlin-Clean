@@ -2,6 +2,7 @@ package com.paul.repos
 
 import com.paul.entity.PoliticalPostDataClass
 import com.paul.models.PoliticalPost
+import com.paul.port.PoliticalPostDoesNotExistException
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
@@ -31,6 +32,10 @@ class PoliticalPostRepo: BaseRepo(){
                 politicalPost["description"] = it[PoliticalPost.description]
             }
         }
+
+        if (politicalPost.isEmpty())
+            throw PoliticalPostDoesNotExistException("political post could not be found")
+
         return politicalPost
     }
 
@@ -52,8 +57,8 @@ class PoliticalPostRepo: BaseRepo(){
     }
 
     fun findPoliticalPostById(id: Long): HashMap<String, String>{
-        val politicalPost = HashMap<String, String>()
 
+        val politicalPost = HashMap<String, String>()
 
         transaction {
             PoliticalPost.select{
@@ -63,6 +68,9 @@ class PoliticalPostRepo: BaseRepo(){
                 politicalPost["name"] = it[PoliticalPost.name]
             }
         }
+
+        if (politicalPost.isEmpty())
+            throw PoliticalPostDoesNotExistException("post could not be found")
 
         return politicalPost
     }

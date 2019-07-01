@@ -2,6 +2,7 @@ package com.paul.repos
 
 import com.paul.entity.UserDataClass
 import com.paul.models.User
+import com.paul.port.UserDoesNotExistException
 import com.paul.ports.UserPorts
 import com.paul.validators.UserValidator
 import org.jetbrains.exposed.sql.Database
@@ -50,6 +51,9 @@ class UserRepo: BaseRepo() {
             }
         }
 
+        if (user.isEmpty())
+            throw UserDoesNotExistException("email and password could no be validated")
+
         return user
     }
 
@@ -74,7 +78,6 @@ class UserRepo: BaseRepo() {
             }
         }
         return users
-
     }
 
     fun findUserById(id: Long): HashMap<String, String> {
@@ -93,9 +96,10 @@ class UserRepo: BaseRepo() {
                userInfo["lastName"] = it[User.lastName]
            }
         }
+
+        if (userInfo.isEmpty())
+            throw UserDoesNotExistException("user could not be found")
+
         return userInfo
     }
-
-
-
 }

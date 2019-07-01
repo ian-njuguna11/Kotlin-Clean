@@ -15,3 +15,9 @@ class IntegerException(message: String): Exception(message)
 // user specific exceptions
 class UserValidationException(message: String): Exception(message)
 class InvalidEmailException(message: String): Exception(message)
+
+// vote exception
+class UserDoesNotExistException(message: String): Exception(message)
+class VoteDoesNotExistException(message: String): Exception(message)
+class PoliticianDoesNotExistException(message: String): Exception(message)
+class PoliticalPostDoesNotExistException(message: String): Exception(message)

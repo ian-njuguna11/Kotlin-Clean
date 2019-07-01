@@ -2,6 +2,7 @@ package com.paul.controllers
 
 import com.paul.entity.PoliticianDataClass
 import com.paul.politicianRepo
+import com.paul.port.PoliticianDoesNotExistException
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
 
@@ -19,7 +20,6 @@ fun Routing.politician() {
 
         val politicianInfo = call.receive<PoliticianDataClass>()
         politicianRepo.create(politicianInfo)
-
         call.respond(HttpStatusCode.Created, mapOf("OK" to true))
 
     }
@@ -34,11 +34,15 @@ fun Routing.politician() {
             return@get
         }
 
-        val politician = politicianRepo.findPoliticianById(id)
-        if (politician.isEmpty())
-            call.respond(HttpStatusCode.NotFound, mapOf("error" to "politician could not be found"))
-        else
-            call.respond(politician)
+        val politician : HashMap<String, String> ?
+        try {
+            politician = politicianRepo.findPoliticianById(id)
+        } catch(e: PoliticianDoesNotExistException){
+            call.respond(HttpStatusCode.NotFound, mapOf("error" to e.message))
+            return@get
+        }
+
+        call.respond(politician)
 
     }
 

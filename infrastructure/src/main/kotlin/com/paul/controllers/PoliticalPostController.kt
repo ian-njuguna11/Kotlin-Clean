@@ -2,6 +2,7 @@ package com.paul.controllers
 
 import com.paul.entity.PoliticalPostDataClass
 import com.paul.politicalPostRepo
+import com.paul.port.PoliticalPostDoesNotExistException
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
 import io.ktor.request.receive
@@ -31,26 +32,38 @@ fun Routing.politicalPost(){
 
     get("/political-posts/id/{post_id}"){
         val id: Long?
+
         try{
             id = call.parameters["post_id"]!!.toLong()
         } catch(e: NumberFormatException){
             call.respond(HttpStatusCode.NotAcceptable, mapOf("error" to "post_id must be a number"))
             return@get
         }
-        val post = politicalPostRepo.findPoliticalPostById(id)
-        if (post.isEmpty())
-            call.respond(HttpStatusCode.NotFound, mapOf("error" to "political post could not be found"))
-        else
-            call.respond(post)
+
+        val post : HashMap<String, String> ?
+        try {
+            post = politicalPostRepo.findPoliticalPostById(id)
+        } catch(e: PoliticalPostDoesNotExistException){
+            call.respond(HttpStatusCode.NotFound, mapOf("error" to e.message))
+            return@get
+        }
+
+        call.respond(post)
+
     }
 
     get("/political-posts/name/{post_name}"){
         val name: String = call.parameters["post_name"].toString()
-        val post = politicalPostRepo.findPostByName(name)
-        if (post.isEmpty())
+        val post: HashMap<String, String> ?
+
+        try {
+            post = politicalPostRepo.findPostByName(name)
+        } catch(e: PoliticalPostDoesNotExistException){
             call.respond(HttpStatusCode.NotFound, mapOf("error" to "political post could not be found"))
-        else
-            call.respond(post)
+            return@get
+        }
+
+        call.respond(post)
     }
 
 }
