@@ -22,7 +22,6 @@ class TestUser{
         }
     }
 
-
     @Test
     fun getAllUsersTest() = withTestApplication(Application::mainModule){
         createUserTest()

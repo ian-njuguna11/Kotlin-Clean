@@ -48,6 +48,7 @@ fun Application.mainModule(){
         politician()
         votes()
     }
+
 }
 
 
@@ -63,10 +64,11 @@ fun initDb(){
 
     transaction {
 
-        SchemaUtils.drop(VoteModel)
+
         SchemaUtils.drop(PoliticianModel)
         SchemaUtils.drop(UserModel)
         SchemaUtils.drop(PoliticalPost)
+        SchemaUtils.drop(VoteModel)
 
 
         SchemaUtils.create(UserModel)

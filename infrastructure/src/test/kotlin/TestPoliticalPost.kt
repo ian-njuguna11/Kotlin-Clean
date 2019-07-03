@@ -77,6 +77,4 @@ class TestPoliticalPost {
             Assert.assertThat(response.content , CoreMatchers.containsString(""""name":"president""""))
         }
     }
-
-
 }

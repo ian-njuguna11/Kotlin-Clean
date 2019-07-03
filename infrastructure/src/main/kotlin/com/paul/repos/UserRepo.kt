@@ -87,7 +87,7 @@ class UserRepo: BaseRepo() {
         val userInfo :HashMap<String, String> = HashMap()
 
         transaction {
-           var user = User.select {
+           User.select {
                User.id eq id
            }.withDistinct().map {
                userInfo["id"] = it[User.id].toString()

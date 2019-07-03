@@ -16,7 +16,7 @@ class PoliticianRepo: BaseRepo() {
         transaction {
             Politician.insert {
                 it[userId] = politician.userId
-                it[politicalPartyId] = politician.politicalPostId
+                it[politicalPostId] = politician.politicalPostId
             }
         }
     }
@@ -29,7 +29,7 @@ class PoliticianRepo: BaseRepo() {
             Politician.selectAll().forEach {
                 val politicianArray = HashMap<String, String>()
                 val user = userRepo.findUserById(it[Politician.userId])
-                val politicalPost = politicalPostRepo.findPoliticalPostById(it[Politician.politicalPartyId])
+                val politicalPost = politicalPostRepo.findPoliticalPostById(it[Politician.politicalPostId])
 
                 politicianArray["userId"] = user["id"].toString()
                 politicianArray["postId"] = politicalPost["id"].toString()
@@ -52,7 +52,7 @@ class PoliticianRepo: BaseRepo() {
                 politician["id"] = it[Politician.id].toString()
                 politician["firstName"] = userRepo.findUserById(id)["firstName"]!!
                 politician["lastName"] = userRepo.findUserById(it[Politician.userId])["lastName"]!!
-                politician["post"] = politicalPostRepo.findPoliticalPostById(it[Politician.politicalPartyId])["name"]!!
+                politician["post"] = politicalPostRepo.findPoliticalPostById(it[Politician.politicalPostId])["name"]!!
             }
         }
 

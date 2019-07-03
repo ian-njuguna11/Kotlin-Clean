@@ -65,7 +65,7 @@ fun Routing.users() {
     post("/users/login") {
         val loginUser = call.receive<UserDataClass>()
 
-        var user: Map<String, String> = HashMap()
+        val user: Map<String, String> ?
 
         try {
             user = userRepo.findUserByEmail(loginUser.email, UserPorts.hashPassword( loginUser.password))!!
