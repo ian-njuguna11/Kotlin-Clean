@@ -35,7 +35,6 @@ fun Routing.votes(){
         call.respond(HttpStatusCode.Created, mapOf("message" to "vote successfully inserted"))
     }
 
-
     /*
     * get vote tally for a single political post
     */

@@ -71,4 +71,9 @@ class UserValidator(
         validateName("last")
     }
 
+    fun validateLoginUser(){
+        validateEmail()
+        validatePassword()
+    }
+
 }
