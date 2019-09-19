@@ -8,7 +8,8 @@ data class Candidate(
     var politicalPartyId: Int = 0,
     var politicalPartyName: String = "",
     var politicalPostId: Int = 0,
-    val politicalPostName: String = ""
+    val politicalPostName: String = "",
+    val nationalId: String = ""
 ): BaseEntity<Int>(){
 
     override fun toMap(): HashMap<Any, Any> {
@@ -17,6 +18,7 @@ data class Candidate(
             this["politicalPartyName"] = politicalPartyName
             this["politicalPostId"] = politicalPostId
             this["politicalPostName"] = politicalPostName
+            this["nationalId"] = nationalId
         }
     }
 

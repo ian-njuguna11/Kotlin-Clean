@@ -6,6 +6,7 @@ open class BaseEntity<T>(
     open var topic: String = "",
     open var name: String = ""
 ){
+
     open fun toMap():HashMap<Any, Any>{
         val baseMap = HashMap<Any, Any>()
         baseMap["id"] = this.id!!

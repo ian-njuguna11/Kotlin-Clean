@@ -9,8 +9,7 @@
 
     <modules>
         <module>Domain</module>
-        <module>UseCases</module>
-        <module>infrastructure</module>
+        <module>use-cases</module>
     </modules>
     <packaging>pom</packaging>
 
