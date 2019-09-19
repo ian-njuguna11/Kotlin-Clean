@@ -9,10 +9,10 @@ open class BaseEntity<T>(
 
     open fun toMap():HashMap<Any, Any>{
         val baseMap = HashMap<Any, Any>()
-        baseMap["id"] = this.id!!
         baseMap["avscFilename"] = this.avscFilename
         baseMap["topic"] = this.topic
         baseMap["name"] = this.name
         return baseMap
     }
+
 }

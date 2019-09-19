@@ -10,6 +10,7 @@ data class Voter(
 
     override fun toMap(): HashMap<Any, Any> {
         return super.toMap().apply {
+            this["id"] = id!!
             this["nationalId"] = nationalId
         }
     }

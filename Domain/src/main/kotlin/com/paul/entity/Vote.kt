@@ -15,6 +15,7 @@ data class Vote(
 
     override fun toMap(): HashMap<Any, Any> {
         return super.toMap().apply {
+            this["id"] = id!!
             this["national_id"] = nationalId
             this["voter_name"] = voterName
             this["post_id"] = postId

@@ -5,4 +5,12 @@ data class PoliticalParty(
     override var avscFilename: String = "",
     override var topic: String = "political_party",
     override var name: String = ""
-): BaseEntity<Int>()
+): BaseEntity<Int>(){
+
+    override fun toMap(): HashMap<Any, Any> {
+        return super.toMap().apply {
+            this["id"] = id!!
+        }
+    }
+
+}

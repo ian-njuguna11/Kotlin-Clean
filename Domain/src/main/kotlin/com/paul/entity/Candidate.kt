@@ -14,6 +14,7 @@ data class Candidate(
 
     override fun toMap(): HashMap<Any, Any> {
         return super.toMap().apply {
+            this["id"] = id!!
             this["politicalPartyId"] = politicalPartyId
             this["politicalPartyName"] = politicalPartyName
             this["politicalPostId"] = politicalPostId

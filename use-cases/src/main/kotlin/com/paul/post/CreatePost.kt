@@ -28,14 +28,10 @@ class CreatePost (
     {
         // checks if there is already a post in the system with a similar name. Since name needs to be unique
         val allPosts = postRepo.findAll()
-        var result = false
         loop@ for (p in allPosts){
-            if (post.name == p.name){
-                result = true
-                break@loop
-            }
+            if (post.name == p.name) return true
         }
-        return result
+        return false
     }
 
 }
