@@ -33,5 +33,4 @@ class CreatePoliticalPartyTest {
         createDuplicatePoliticalParty.execute()
     }
 
-
 }

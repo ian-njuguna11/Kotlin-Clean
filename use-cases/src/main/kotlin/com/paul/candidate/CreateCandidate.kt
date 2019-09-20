@@ -3,6 +3,7 @@ package com.paul.candidate
 import com.paul.AlreadyExistsException
 import com.paul.DoesNotExistException
 import com.paul.entity.Candidate
+import com.paul.entity.PoliticalParty
 import com.paul.entity.Post
 import com.paul.repos.ICandidateRepository
 import com.paul.repos.IPoliticalPartyRepository
@@ -15,7 +16,7 @@ class CreateCandidate (
     var postName: String = "",
     var candidateRepo: ICandidateRepository<Candidate, Int>,
     var postRepo: IPostRepository<Post, Int>,
-    var partyRepo: IPoliticalPartyRepository<Post, Int>
+    var partyRepo: IPoliticalPartyRepository<PoliticalParty, Int>
 ){
 
     val LOG = Logger.getLogger(CreateCandidate::class.java.name)
@@ -34,6 +35,11 @@ class CreateCandidate (
             LOG.warning("Candidate with national ID ${candidate.nationalId} already exists in the system")
             throw AlreadyExistsException("Candidate with national ID ${candidate.nationalId} already exists in the system")
         }
+
+        candidate.politicalPartyId = partyRepo.findByName(partyName)?.id!!
+        candidate.politicalPartyName = partyName
+        candidate.politicalPostId = postRepo.findByName(postName)?.id!!
+        candidate.politicalPostName = postName
 
         val createdCandidate = candidateRepo.create(candidate)
         LOG.info("Candidate ${createdCandidate.toMap()} has been successfully created")
