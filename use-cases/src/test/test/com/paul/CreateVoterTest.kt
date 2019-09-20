@@ -4,7 +4,6 @@ import com.paul.entity.Voter
 import com.paul.voter.CreateVoter
 import org.junit.Before
 import org.junit.Test
-import kotlin.math.exp
 import kotlin.test.assertEquals
 
 class CreateVoterTest {
